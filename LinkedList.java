@@ -24,8 +24,16 @@ public class LinkedList<E> {
    }
    
    void remove(Node<E> node) {
-      Node<E> current = first;
-         if(current == node) {
+         if(first.equals(node)) {
+            first = first.next;
+         }
+         Node<E> current = first;
+         while(current != null && current.next != null) {
+            if(current.next.equals(node) && current.next.next == null) {
+               current.next = null;
+            } else if(current.next.equals(node)) {
+               current.next = current.next.next;
+            }
             current = current.next;
          }
    }
@@ -43,7 +51,18 @@ public class LinkedList<E> {
    
    boolean equals(LinkedList list) {
       Node<E> current = first;
-      return list.equals(current);
+      Node<E> current2 = list.first;
+      while(current.next != null || current2.next != null) {
+         if(!current.equals(current2)) {
+            return false;
+         }
+         if((current.next == null && current2.next != null) || (current.next != null && current2.next == null)) {
+            return false;
+         }
+         current = current.next;
+         current2 = current2.next;
+      }
+      return true;
    }
    
    void print() {
