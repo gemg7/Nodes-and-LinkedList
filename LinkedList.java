@@ -1,5 +1,7 @@
+import java.util.NoSuchElementException;
+
 public class LinkedList<E> {
-   private Node<E> first;
+   public Node<E> first;
    
    void add(Node<E> node) {
       Node<E> current = first;
@@ -63,6 +65,36 @@ public class LinkedList<E> {
          current2 = current2.next;
       }
       return true;
+   }
+
+   Node<E> getParent(Node<E> node) {
+      Node<E> curr1 = first;
+      Node<E> curr2 = first.next;
+
+      while(curr2 != null) {
+         if(curr2.data == node.data && curr1.data != node.data) {
+            return curr1;
+         } else if (curr1 == node) {
+            return null;
+         }
+         curr1 = curr1.next;
+         curr2 = curr2.next;
+      }
+      throw new NoSuchElementException();
+   }
+
+   void truncateList(E value) {
+      Node<E> current = first;
+      if(current.data == value) {
+         first = null;
+      }
+      while(current.next != null) {
+         if(current.next.data == value) {
+            current.next = null;
+            break;
+         }
+         current = current.next;
+      }
    }
    
    void print() {

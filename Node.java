@@ -17,4 +17,8 @@ public class Node<E> {
       } 
       return false;
    }
+
+   void print() {
+      System.out.println(data + "\n");
+   }
 }
